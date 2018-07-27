@@ -3,21 +3,22 @@
 }
 
 .nav-container {
-  width: 30%;
-  height: 200px;
+  width: 40%;
+  height: auto;
   border: 1px transparent;
   margin: 20px;
+  padding-bottom: 8px;
   background-color: rgba(245, 245, 245);
 }
 
 .nav-header {
   padding: 10px;
-  background-color: rgba(0, 0, 0, 0.13);
+  background-color: rgba(222, 222, 222);
+  color: rgba(0, 0, 0, 0.85);
 }
 
 .nav-header:hover {
   cursor: default;
-
 }
 
 .nav-button {
@@ -25,6 +26,50 @@
   color: rgba(0, 103, 247);
 }
 
-.link-title {
+.link-container {
+  margin: 8px 5px 0px 5px;
+  height: 30px;
+  background-color: rgba(255, 255, 255);
+  border: 1px solid rgba(0, 0, 0, 0.30);
+}
 
+.link-title {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.link-button {
+  float: right;
+  height: 100%;
+  padding: 0px 10px 0px 10px;
+}
+
+.link-button:hover {
+  background-color: rgba(222, 222, 222);
+  cursor: default;
+}
+
+.link-input {
+  border: 1px solid rgba(0, 103, 247);
+  padding-left: 5px;
+}
+
+.link-card {
+  background-color: rgba(255, 255, 255);
+  margin: 8px 5px 0px 5px;
+  border: 1px solid rgba(0, 0, 0, 0.30);
+}
+
+input:focus{
+  outline: none;
+}
+
+
+.back-button {
+  height: 100px;
+  float: left;
+  background-color: rgba(222, 222, 222);
+  margin-left: 10px;
+  width: 10%;
 }

@@ -56,8 +56,7 @@ class Link extends Component {
     })
   }
 
-  handleEdit(e) {
-    e.preventDefault();
+  handleEdit() {
     this.setState({
       cardIsOpen: !this.state.cardIsOpen,
       showFlyout: false
@@ -76,14 +75,25 @@ class Link extends Component {
     return (
       <div>
       {this.state.cardIsOpen ? 
-        <form>
-          <input name="link_title" value={this.state.link_title} onChange={(e) => {this.handleChange(e)}}/>
-          <input name="link_url" value={this.state.link_url} onChange={(e) => {this.handleChange(e)}}/>
-          <button onClick={(e)=> {this.handleEdit(e)}}>Back</button>
-        </form> :
-          <div className="link-title">{this.props.link.link_title}</div>
+        <div className="link-card">
+          <div className="back-button" onClick={this.handleEdit}>{"<"}</div>
+          <
+          br/>
+          <div className="input-form">
+            <form autoComplete="off">
+              <div>Link title</div>
+              <input className="link-input" name="link_title" type="text" value={this.state.link_title} onChange={(e) => {this.handleChange(e)}}/>
+              <br/>
+              <div>Link url</div>
+              <input className="link-input" name="link_url" type="text" value={this.state.link_url} onChange={(e) => {this.handleChange(e)}}/>
+            </form>
+          </div>
+        </div> :
+        <div className="link-container">
+          <span className="link-title">{this.props.link.link_title}</span>
+          <span className="link-button" onClick={this.handleClick}>. . .</span>
+        </div>
         }
-        <button onClick={this.handleClick}>...</button>
       {this.state.showFlyout ? 
         <div>
           <div onClick={this.handleEdit}>Edit</div>
