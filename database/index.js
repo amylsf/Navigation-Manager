@@ -13,7 +13,8 @@ module.exports.saveLink = (link) => {
   return knex('navigation')
   .insert({
     link_title: link.link_title,
-    link_url: link.link_url
+    link_url: link.link_url,
+    index: link.index
   })
   .catch((err) => {
     console.log('Unable to save link to database', err);
@@ -37,7 +38,8 @@ module.exports.updateLink = (link) => {
   })
   .update({
     link_title: link.link_title,
-    link_url: link.link_url
+    link_url: link.link_url,
+    index: link.index
   })
   .then(() => {
     console.log('updated link successfully');

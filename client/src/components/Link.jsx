@@ -72,7 +72,7 @@ class Link extends Component {
   }
 
   render() {
-    return (
+    return(
       <div>
       {this.state.cardIsOpen ? 
         <div className="link-card">

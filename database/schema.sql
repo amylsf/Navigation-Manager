@@ -9,5 +9,6 @@ DROP TABLE IF EXISTS navigation;
 CREATE TABLE navigation (
   id SERIAL PRIMARY KEY,
   link_title TEXT NULL,
-  link_url TEXT NULL
+  link_url TEXT NULL,
+  index SMALLINT NOT NULL
 );

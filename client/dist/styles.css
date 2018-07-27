@@ -4,7 +4,7 @@
 
 .nav-container {
   width: 40%;
-  height: auto;
+  height: 300px;
   border: 1px transparent;
   margin: 20px;
   padding-bottom: 8px;
@@ -64,7 +64,6 @@
 input:focus{
   outline: none;
 }
-
 
 .back-button {
   height: 100px;
