@@ -1,0 +1,30 @@
+.body {
+  font-family: SFProText, sans-serif;
+}
+
+.nav-container {
+  width: 30%;
+  height: 200px;
+  border: 1px transparent;
+  margin: 20px;
+  background-color: rgba(245, 245, 245);
+}
+
+.nav-header {
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.13);
+}
+
+.nav-header:hover {
+  cursor: default;
+
+}
+
+.nav-button {
+  float: right;
+  color: rgba(0, 103, 247);
+}
+
+.link-title {
+
+}

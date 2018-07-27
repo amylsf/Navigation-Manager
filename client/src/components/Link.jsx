@@ -81,9 +81,8 @@ class Link extends Component {
           <input name="link_url" value={this.state.link_url} onChange={(e) => {this.handleChange(e)}}/>
           <button onClick={(e)=> {this.handleEdit(e)}}>Back</button>
         </form> :
-        <div>
-          <div>{this.props.link.link_title}</div>
-        </div> }
+          <div className="link-title">{this.props.link.link_title}</div>
+        }
         <button onClick={this.handleClick}>...</button>
       {this.state.showFlyout ? 
         <div>

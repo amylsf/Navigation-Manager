@@ -58,9 +58,11 @@ class Navigation extends Component {
 
   render() {
     return (
-      <div>
-        <div>Navigation</div>
-        <button onClick={this.handleClick}>+ item</button>
+      <div className="nav-container">
+        <div className="nav-header">
+          <span>Navigation</span>
+          <span className="nav-button" onClick={this.handleClick}>+ item</span>
+        </div>
         {this.state.links.map((link) => {
           return (
             <Link 
