@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Link from './Link.jsx';
 
 class Navigation extends Component {
   constructor() {
@@ -12,11 +13,15 @@ class Navigation extends Component {
     this.fetchLinks = this.fetchLinks.bind(this);
   }
 
-  addLink(title, url) {
+  componentDidMount() {
+    this.fetchLinks();
+  }
+
+  addLink() {
     axios.post('/navigation', {
       link: {
-        link_title: title,
-        link_url: url
+        link_title: '',
+        link_url: ''
       }
     })
     .then(() => {
@@ -43,7 +48,15 @@ class Navigation extends Component {
     return (
       <div>
         <div>Navigation</div>
-        <div>+ item</div>
+        <button onClick={this.addLink}>+ item</button>
+        {this.state.links.map((link) => {
+          return (
+            <Link 
+              key={link.id}
+              link={link}
+              />
+          )
+        })}
       </div>
     )
   }

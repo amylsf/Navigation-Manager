@@ -9,10 +9,7 @@ const knex = require('knex')({
 });
 
 module.exports.saveLink = (link) => {
-  link = {
-    link_title: 'meow',
-    link_url: 'also meow'
-  }
+  console.log(link)
   return knex('navigation')
   .insert({
     link_title: link.link_title,

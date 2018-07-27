@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 
 class Link extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    
     this.state = {
-
+      link_title: '',
+      link_url: ''
     }
   }
 
 
   render() {
     return (
-      <div>
-        <div>Link Title</div>
-        <div>Link URL</div>
-      </div>
+      <form>
+        <input value={this.state.link_title}/>
+        <input value={this.state.link_url}/>
+      </form>
     )
   }
 }
