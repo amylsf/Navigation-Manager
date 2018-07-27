@@ -35,3 +35,14 @@ app.post('/navigation', (req, res) => {
     res.status(500).end();
   })
 })
+
+app.delete('/navigation', (req, res) => {
+  db.removeLink(req.query.id)
+  .then(() => {
+    res.status(200).end();
+  })
+  .catch((err) => {
+    console.log(err);
+    res.stats(500).end();
+  })
+})

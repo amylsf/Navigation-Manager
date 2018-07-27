@@ -13,7 +13,8 @@ class Link extends Component {
     this.removeLink = this.removeLink.bind(this);
   }
 
-  removeLink(link_id) {
+  removeLink(e, link_id) {
+    e.preventDefault();
     axios.delete('/navigation', {
       params: {
         id: link_id
@@ -32,7 +33,7 @@ class Link extends Component {
       <form>
         <input value={this.state.link_title}/>
         <input value={this.state.link_url}/>
-        <button onClick={() => {this.removeLink(this.props.link_id)}}>...</button>
+        <button onClick={(e) => {this.removeLink(e, this.props.link.id)}}>...</button>
       </form>
     )
   }

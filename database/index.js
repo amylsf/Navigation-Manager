@@ -34,6 +34,16 @@ module.exports.updateLink = () => {
 
 }
 
-module.exports.removeLink = () => {
-
+module.exports.removeLink = (id) => {
+  return knex('navigation')
+  .where({
+    id: id
+  })
+  .del()
+  .then(() => {
+    console.log('successfully deleted');
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 }
