@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const parser = require('body-parser');
 const port = 3000;
-const db = '../database/index.js';
+const db = require('../database/index.js');
 
 
 app.use(parser.json());
@@ -17,11 +17,11 @@ app.listen(port, function() {
 app.get('/navigation', (req, res) => {
   db.fetchLinks()
   .then((data) => {
-    res.status(200).end(data);
+    res.send(data);
   })
   .catch((err) => {
     console.log(err);
-    res.status(500).end();
+    res.send();
   })
 })
 

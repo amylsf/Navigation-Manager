@@ -1,7 +1,7 @@
-knex = require('knex')({
+const knex = require('knex')({
   client: 'pg',
   connection: {
-    host : 'localhost',
+    host : '127.0.0.1',
     port: '5432',
     user : 'amysanfelipe',
     database : 'nbc_navigation'
@@ -9,6 +9,10 @@ knex = require('knex')({
 });
 
 module.exports.saveLink = (link) => {
+  link = {
+    link_title: 'meow',
+    link_url: 'also meow'
+  }
   return knex('navigation')
   .insert({
     link_title: link.link_title,
@@ -21,8 +25,8 @@ module.exports.saveLink = (link) => {
 
 module.exports.fetchLinks = () => {
   return knex('navigation')
-  .then((link) => {
-    return link;
+  .then((links) => {
+    return links;
   })
   .catch((err) => {
     console.log('Unable to retrieve links from database', err);
