@@ -30,8 +30,21 @@ module.exports.fetchLinks = () => {
   })
 }
 
-module.exports.updateLink = () => {
-
+module.exports.updateLink = (link) => {
+  return knex('navigation')
+  .where({
+    id: link.id
+  })
+  .update({
+    link_title: link.link_title,
+    link_url: link.link_url
+  })
+  .then(() => {
+    console.log('updated link successfully');
+  })
+  .catch((err) => {
+    console.log('Unable to update link', err);
+  })
 }
 
 module.exports.removeLink = (id) => {

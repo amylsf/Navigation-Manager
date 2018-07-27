@@ -36,6 +36,17 @@ app.post('/navigation', (req, res) => {
   })
 })
 
+app.put('/navigation', (req, res) => {
+  db.updateLink(req.body.link)
+  .then(() => {
+    res.status(201).end();
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(500).end();
+  })
+})
+
 app.delete('/navigation', (req, res) => {
   db.removeLink(req.query.id)
   .then(() => {
