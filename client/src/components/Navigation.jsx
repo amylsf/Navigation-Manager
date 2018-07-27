@@ -54,6 +54,7 @@ class Navigation extends Component {
             <Link 
               key={link.id}
               link={link}
+              fetchLinks={this.fetchLinks}
               />
           )
         })}
