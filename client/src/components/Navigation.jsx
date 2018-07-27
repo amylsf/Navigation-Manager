@@ -6,11 +6,13 @@ class Navigation extends Component {
   constructor() {
     super();
     this.state = {
-      links: []
+      links: [],
+      errorMessage: false
     }
 
     this.addLink = this.addLink.bind(this);
     this.fetchLinks = this.fetchLinks.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -44,11 +46,21 @@ class Navigation extends Component {
     })
   }
 
+  handleClick() {
+    if (this.state.links.length === 5) {
+      this.setState({
+        errorMessage: true
+      })
+    } else {
+      this.addLink();
+    }
+  }
+
   render() {
     return (
       <div>
         <div>Navigation</div>
-        <button onClick={this.addLink}>+ item</button>
+        <button onClick={this.handleClick}>+ item</button>
         {this.state.links.map((link) => {
           return (
             <Link 
