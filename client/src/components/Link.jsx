@@ -11,27 +11,22 @@ class Link extends Component {
       showFlyout: false,
       cardIsOpen: false
     }
-    
-    this.removeLink = this.removeLink.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleClick() {
+  handleClick = () => {
     this.setState({
       showFlyout: !this.state.showFlyout
     })
   }
 
-  handleEdit() {
+  handleEdit = () => {
     this.setState({
       cardIsOpen: !this.state.cardIsOpen,
       showFlyout: false
     })
   }
 
-  handleChange(e) {
+  handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     }, () => {
@@ -39,7 +34,7 @@ class Link extends Component {
     })
   }
 
-  removeLink(e, link_id) {
+  removeLink = (e, link_id) => {
     e.preventDefault();
     axios.delete('/navigation', {
       params: {
@@ -57,9 +52,8 @@ class Link extends Component {
     })
   }
 
-  render() {
-    return(
-      <div>
+  render = () => (
+    <div>
       {this.state.cardIsOpen ? 
         <div className="link-card">
           <div className="back-button" onClick={this.handleEdit}>{"<"}</div>
@@ -80,13 +74,13 @@ class Link extends Component {
         </div>
       }
       {this.state.showFlyout ? 
-        <div>
+        <div className="flyout">
           <div onClick={this.handleEdit}>Edit</div>
           <div onClick={(e) => {this.removeLink(e, this.props.link.id)}}>Remove</div>
-        </div> : null}
-      </div>
-    )
-  }
+        </div> : null
+      }
+    </div>
+  )
 }
 
 export default Link;
