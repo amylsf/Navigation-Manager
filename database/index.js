@@ -9,7 +9,6 @@ const knex = require('knex')({
 });
 
 module.exports.saveLink = (link) => {
-  console.log(link)
   return knex('navigation')
   .insert({
     link_title: link.link_title,
@@ -23,6 +22,7 @@ module.exports.saveLink = (link) => {
 
 module.exports.fetchLinks = () => {
   return knex('navigation')
+  .orderBy('index', 'asc')
   .then((links) => {
     return links;
   })

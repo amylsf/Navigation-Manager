@@ -3,11 +3,6 @@ import axios from 'axios';
 import Link from './Link.jsx';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-const reorder = (list, start, end) => {
-  const removed = list.splice(start, 1);
-  list.splice(end, 0, removed);
-  return list;
-}
 
 class Navigation extends Component {
   constructor() {
@@ -21,6 +16,11 @@ class Navigation extends Component {
     this.fetchLinks = this.fetchLinks.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.reorderList = this.reorderList.bind(this);
+    this.updateLink = this.updateLink.bind(this);
+    this.updateAllLinks = this.updateAllLinks.bind(this);
+    this.updateIndex = this.updateIndex.bind(this);
+    this.onDragUpdate = this.onDragUpdate.bind(this);
   }
 
   componentDidMount() {
@@ -44,11 +44,16 @@ class Navigation extends Component {
     })
   }
 
-  fetchLinks() {
+  fetchLinks(cb) {
     axios.get('/navigation')
     .then(({data}) => [
       this.setState({
         links: data
+      }, () => {
+        console.log(this.state.links);
+        if (cb) {
+          cb();
+        }
       })
     ])
     .catch((err) => {
@@ -66,50 +71,109 @@ class Navigation extends Component {
     }
   }
 
+  reorderList(start, end) {
+    let links = this.state.links.slice();
+    let dragCard = links[start];
+    links.splice(start, 1);
+    links.splice(end, 0, dragCard);
+    this.setState({
+      links: links
+    }, () => {
+      this.updateAllLinks();
+    })
+  }
+
   onDragEnd(result) {
     if (!result.destination) {
       return;
     }
 
-    const items = reorder(
-      this.state.links,
+    this.reorderList(
       result.source.index,
       result.destination.index
     );
+  }
 
-    this.setState({
-      links: items
-    });
+  onDragUpdate(result) {
+    console.log('calling', result)
+  }
+
+  updateLink(id, title, url, index) {
+    axios.put('/navigation', {
+      link: {
+        id: id,
+        link_title: title,
+        link_url: url,
+        index: index
+      }
+    })
+    .then(() => {
+      this.fetchLinks();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+  updateAllLinks() {
+    this.state.links.forEach((link, index) => {
+      this.updateIndex(link.id, index);
+    })
+  }
+
+  updateIndex(id, index) {
+    axios.put('/navigation', {
+      link: {
+        id: id,
+        index: index
+      },
+    })
+    .then(() => {
+      this.fetchLinks();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   render() {
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
-        <Droppable droppableId="droppable">
-        {(provided, snapshot) => (
-          <div className="nav-container" ref={provided.innerRef}>
-            <div className="nav-header">
-              <span>Navigation</span>
-              <span className="nav-button" onClick={this.handleClick}>+ item</span>
-            </div>
-            {this.state.links.map((link) => {
-              return (
-                <Draggable key={link.id} index={link.index} draggableId={link.id}>
-                {(provided, snapshot) => (
-                  <div key={link.id} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} >
-                    <Link 
-                      link={link}
-                      fetchLinks={this.fetchLinks}
-                    />
-                  </div>
-                )}
-                </Draggable>
-              )
-            })}
-            {provided.placeholder}
+      <DragDropContext onDragEnd={this.onDragEnd} onDragUpdate={this.onDragUpdate} >
+        <div className="nav-container">
+          <div className="nav-header">
+            <span>Navigation</span>
+            <span className="nav-button" onClick={this.handleClick}>+ item</span>
           </div>
-        )}
+          <Droppable droppableId="droppable">
+            {(provided, snapshot) => (
+              <div ref={provided.innerRef} >
+              {provided.placeholder}
+              {this.state.links.map((link, index) => (
+                <Draggable key={link.id} draggableId={link.id} index={index}>
+                  {(provided, snapshot) => (
+                    <div
+                    ref={provided.innerRef} 
+                    {...provided.draggableProps} 
+                    {...provided.dragHandleProps}
+                    >
+                      <Link 
+                        key={link.id}
+                        link={link}
+                        fetchLinks={this.fetchLinks}
+                        updateLink={this.updateLink}
+                        links={this.state.links}
+                        index={index}
+                        updateAll={this.updateAllLinks}
+                      />
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+            {provided.placeholder}
+            </div>
+          )}
         </Droppable>
+        </div>
       </DragDropContext>
     )
   }
