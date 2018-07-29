@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { DropdownButton, MenuItem, Dropdown, Glyphicon } from 'react-bootstrap';
+import { MenuItem, Dropdown, Glyphicon } from 'react-bootstrap';
 
 
 class Link extends Component {
@@ -10,21 +10,13 @@ class Link extends Component {
     this.state = {
       link_title: this.props.link.link_title,
       link_url: this.props.link.link_url,
-      showFlyout: false,
       cardIsOpen: false
     }
   }
 
-  handleClick = () => {
-    this.setState({
-      showFlyout: !this.state.showFlyout
-    })
-  }
-
   handleEdit = () => {
     this.setState({
-      cardIsOpen: !this.state.cardIsOpen,
-      showFlyout: false
+      cardIsOpen: !this.state.cardIsOpen
     })
   }
 
@@ -61,39 +53,42 @@ class Link extends Component {
     <div>
       {this.state.cardIsOpen ? 
         <div className="link-card">
-          <div className="back-button" onClick={this.handleEdit}>{"<"}</div>
-          <br/>
+          <div className="back-button" onClick={this.handleEdit}><img className="back-button-img" src="/images/arrow-left.svg" height="20" width="20"></img></div>
           <div className="input-form">
             <form autoComplete="off">
-              <div>Link title</div>
+              <div className="link-headers">Link title</div>
               <input className="link-input" name="link_title" type="text" value={this.state.link_title} maxLength={45} onChange={(e) => {this.handleChange(e)}}/>
               <br/>
-              <div>Link url</div>
+              <div className="link-headers">Link url</div>
               <input className="link-input" name="link_url" type="text" value={this.state.link_url} onChange={(e) => {this.handleChange(e)}}/>
             </form>
           </div>
+          <div className="clear"></div>
         </div> :
         <div className="link-container">
           <span className="link-title">{this.props.link.link_title}</span>
           <div className="flyout">
             <Dropdown
               className="link-button" 
-              onClick={this.handleClick}
               bsStyle="default"
               pullRight
-              title=''
+              title=""
               id="dropdown-no-caret"
               >
               <Dropdown.Toggle
                 noCaret
               >
-                <Glyphicon
-                  glyph="option-horizontal"
-                />
+                <Glyphicon glyph="option-horizontal" />
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <MenuItem onClick={this.handleEdit}>Edit</MenuItem>
-                <MenuItem onClick={(e) => {this.removeLink(e, this.props.link.id)}}>Remove</MenuItem>
+                <MenuItem onClick={this.handleEdit}>
+                  <img className="menu-action-image" src="/images/edit.svg" height="20" width="20" />
+                  <span className="menu-action">Edit</span>
+                </MenuItem>
+                <MenuItem onClick={(e) => {this.removeLink(e, this.props.link.id)}}>
+                  <img className="menu-action-image" src="/images/trash.svg" height="20" width="20" />
+                  <span className="menu-action">Remove</span>
+                </MenuItem>
               </Dropdown.Menu>
             </Dropdown>
           </div>

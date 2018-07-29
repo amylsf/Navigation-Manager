@@ -128,35 +128,37 @@ class Navigation extends Component {
           <span>Navigation</span>
           <span className="nav-button" onClick={this.handleClick}>+ item</span>
         </div>
-        <Droppable droppableId="droppable">
-          {(provided, snapshot) => (
-            <div ref={provided.innerRef} >
+        <div className="links-container">
+          <Droppable droppableId="droppable">
+            {(provided, snapshot) => (
+              <div ref={provided.innerRef} >
+              {provided.placeholder}
+              {this.state.links.map((link, index) => (
+                <Draggable key={link.id} draggableId={link.id} index={index}>
+                  {(provided, snapshot) => (
+                    <div
+                    ref={provided.innerRef} 
+                    {...provided.draggableProps} 
+                    {...provided.dragHandleProps}
+                    >
+                      <Link 
+                        key={link.id}
+                        link={link}
+                        fetchLinks={this.fetchLinks}
+                        updateLink={this.updateLink}
+                        links={this.state.links}
+                        index={index}
+                        updateAll={this.updateAllLinks}
+                      />
+                    </div>
+                  )}
+                </Draggable>
+              ))}
             {provided.placeholder}
-            {this.state.links.map((link, index) => (
-              <Draggable key={link.id} draggableId={link.id} index={index}>
-                {(provided, snapshot) => (
-                  <div
-                  ref={provided.innerRef} 
-                  {...provided.draggableProps} 
-                  {...provided.dragHandleProps}
-                  >
-                    <Link 
-                      key={link.id}
-                      link={link}
-                      fetchLinks={this.fetchLinks}
-                      updateLink={this.updateLink}
-                      links={this.state.links}
-                      index={index}
-                      updateAll={this.updateAllLinks}
-                    />
-                  </div>
-                )}
-              </Draggable>
-            ))}
-          {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
+            </div>
+          )}
+        </Droppable>
+      </div>
       </div>
     </DragDropContext>
   )
