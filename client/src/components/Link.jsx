@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { DropdownButton, MenuItem, Dropdown, Glyphicon } from 'react-bootstrap';
+
 
 class Link extends Component {
   constructor(props) {
@@ -29,8 +31,6 @@ class Link extends Component {
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
-    }, () => {
-      this.props.updateLink(this.props.link.id, this.state.link_title, this.state.link_url);
     })
   }
 
@@ -52,6 +52,11 @@ class Link extends Component {
     })
   }
 
+  updateOnBlur = () => {
+    console.log('burrrrr')
+    this.props.updateLink(this.props.link.id, this.state.link_title, this.state.link_url);
+  }
+
   render = () => (
     <div>
       {this.state.cardIsOpen ? 
@@ -61,7 +66,7 @@ class Link extends Component {
           <div className="input-form">
             <form autoComplete="off">
               <div>Link title</div>
-              <input className="link-input" name="link_title" type="text" value={this.state.link_title} onChange={(e) => {this.handleChange(e)}}/>
+              <input className="link-input" name="link_title" type="text" value={this.state.link_title} maxLength={45} onChange={(e) => {this.handleChange(e)}}/>
               <br/>
               <div>Link url</div>
               <input className="link-input" name="link_url" type="text" value={this.state.link_url} onChange={(e) => {this.handleChange(e)}}/>
@@ -70,14 +75,29 @@ class Link extends Component {
         </div> :
         <div className="link-container">
           <span className="link-title">{this.props.link.link_title}</span>
-          <span className="link-button" onClick={this.handleClick}>. . .</span>
+          <div className="flyout">
+            <Dropdown
+              className="link-button" 
+              onClick={this.handleClick}
+              bsStyle="default"
+              pullRight
+              title=''
+              id="dropdown-no-caret"
+              >
+              <Dropdown.Toggle
+                noCaret
+              >
+                <Glyphicon
+                  glyph="option-horizontal"
+                />
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <MenuItem onClick={this.handleEdit}>Edit</MenuItem>
+                <MenuItem onClick={(e) => {this.removeLink(e, this.props.link.id)}}>Remove</MenuItem>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
         </div>
-      }
-      {this.state.showFlyout ? 
-        <div className="flyout">
-          <div onClick={this.handleEdit}>Edit</div>
-          <div onClick={(e) => {this.removeLink(e, this.props.link.id)}}>Remove</div>
-        </div> : null
       }
     </div>
   )

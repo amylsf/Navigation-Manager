@@ -25,6 +25,7 @@
     "pg": "^7.4.3",
     "react": "^16.3.1",
     "react-beautiful-dnd": "^8.0.0",
+    "react-bootstrap": "^0.32.1",
     "react-dom": "^16.4.1"
   }
 }
