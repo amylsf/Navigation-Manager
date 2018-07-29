@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { MenuItem, Dropdown, Glyphicon } from 'react-bootstrap';
 
-
 class Link extends Component {
   constructor(props) {
     super(props);
@@ -23,6 +22,8 @@ class Link extends Component {
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
+    }, () => {
+      this.props.updateLink(this.props.link.id, this.state.link_title, this.state.link_url)
     })
   }
 
@@ -44,9 +45,10 @@ class Link extends Component {
     })
   }
 
-  updateOnBlur = () => {
-    console.log('burrrrr')
-    this.props.updateLink(this.props.link.id, this.state.link_title, this.state.link_url);
+  handleKeyPress = (e) => {
+    if (e.keyCode === 13) {
+      this.refs.url.focus();
+    }
   }
 
   render = () => (
@@ -57,10 +59,10 @@ class Link extends Component {
           <div className="input-form">
             <form autoComplete="off">
               <div className="link-headers">Link title</div>
-              <input className="link-input" name="link_title" type="text" value={this.state.link_title} maxLength={45} onChange={(e) => {this.handleChange(e)}}/>
+              <input className="link-input" name="link_title" type="text" value={this.state.link_title} maxLength={45} onChange={this.handleChange} onKeyDown={this.handleKeyPress}/>
               <br/>
               <div className="link-headers">Link url</div>
-              <input className="link-input" name="link_url" type="text" value={this.state.link_url} onChange={(e) => {this.handleChange(e)}}/>
+              <input className="link-input" ref="url" name="link_url" type="text" value={this.state.link_url} onChange={this.handleChange}/>
             </form>
           </div>
           <div className="clear"></div>

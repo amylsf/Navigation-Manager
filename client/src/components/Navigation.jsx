@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Link from './Link.jsx';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
+import debounce from 'lodash.debounce';
 
 class Navigation extends Component {
   constructor() {
@@ -11,6 +11,9 @@ class Navigation extends Component {
       links: [],
       errorMessage: false
     }
+
+    //added debounce to limit API calls made when updating link title and url
+    this.updateLink = debounce(this.updateLink, 500);
   }
 
   componentDidMount = () => {
