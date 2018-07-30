@@ -1,10 +1,28 @@
-.body {
-  font-family: SFProText, sans-serif;
+@font-face {
+  font-family: 'SFProText-Regular';
+  src: url('/assets/SFProText-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SFProText-Bold';
+  src: url('/assets/SFProDisplay-Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'SFProText-Regular', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+:-moz-focusring {
+  outline: 0;
 }
 
 .nav-container {
   width: 400px;
-  height: 300px;
+  min-height: 270px;
   border: 1px transparent;
   margin: 20px;
   padding-bottom: 8px;
@@ -12,7 +30,7 @@
 }
 
 .nav-header {
-  padding: 10px;
+  padding: 5px;
   background-color: rgba(222, 222, 222);
   color: rgba(0, 0, 0, 0.85);
 }
@@ -31,13 +49,18 @@
   height: 36px;
   background-color: rgba(255, 255, 255);
   border: 1px solid rgba(0, 0, 0, 0.30);
+  display: table;
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.13);
 }
 
 .link-title {
-  font-weight: bold;
+  font-family: 'SFProText-Bold', sans-serif;
   font-size: 16px;
   line-height: 24px;
-  padding-left: 5px;
+  padding-left: 10px;
+  width: 100%;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .flyout {
@@ -49,6 +72,7 @@
   border: none;
   padding: 0px 10px 0px 10px;
   border-radius: 0;
+  cursor: default;
 }
 
 #dropdown-no-caret:focus {
@@ -62,19 +86,33 @@
 ul.dropdown-menu.dropdown-menu-right {
   border-radius: 0px;
   padding: 0px;
+  margin-top: 1px;
+  width: 100px;
 }
 
 a {
   border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+  outline: 0;
+}
+
+.dropdown-menu li a {
+  padding-left: 8px;
+  height: 45px;
+}
+
+div.open .dropdown-menu {
+  width: 200px;
 }
 
 .dropdown-menu li a:hover {
   background-color: rgba(0, 0, 0, 0.13);
+  cursor: default;
 }
 
 .menu-action {
   font-size: 14px;
-  line-height: 30px;
+  margin-left: 8px;
+  line-height: 45px;
 }
 
 .menu-action-image {
@@ -82,7 +120,7 @@ a {
 }
 
 .back-button {
-  height: 90%;
+  height: 93%;
   width: 10%;
   float: left;
   background-color: rgba(222, 222, 222);
@@ -97,30 +135,30 @@ a {
 
 .input-form {
   float: left;
-  margin: 5px 5px 0px 5px;
+  margin: 0px 5px 0px 5px;
   width: 83%;
 }
 
 .link-input {
-  border: 1px solid rgba(0, 103, 247);
+  border: 2px solid rgba(0, 103, 247);
   padding-left: 5px;
   width: 100%;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   line-height: 24px;
 }
 
 .link-card {
   height: 150px;
   background-color: rgba(255, 255, 255);
-  margin: 5px 10px 0px 5px;
+  margin: 5px 5px 0px 5px;
   border: 1px solid rgba(0, 0, 0, 0.30);
   cursor: default;
 }
 
 .link-headers {
+  font-family: 'SFProText-Bold', sans-serif;
   margin-top: 8px;
   margin-bottom: 5px;
-  font-weight: 700;
 }
 
 .clear {
