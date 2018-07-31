@@ -62,7 +62,7 @@ body {
 
 .link-container:hover {
   border: 1px solid rgba(0, 0, 0, 0.85);
-  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.13);
 }
 
 .link-title {
@@ -73,6 +73,10 @@ body {
   width: 100%;
   display: table-cell;
   vertical-align: middle;
+}
+
+.link-title:active {
+  background-color: #dedede;
 }
 
 .flyout {

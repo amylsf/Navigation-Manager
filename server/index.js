@@ -21,7 +21,6 @@ app.get('/navigation', (req, res) => {
     res.status(200).send(data);
   })
   .catch((err) => {
-    console.log(err);
     res.status(500).end();
   })
 })
@@ -33,7 +32,6 @@ app.post('/navigation', (req, res) => {
     res.status(201).end();
   })
   .catch((err) => {
-    console.log(err);
     res.status(500).end();
   })
 })
@@ -45,7 +43,6 @@ app.put('/navigation', (req, res) => {
     res.status(201).end();
   })
   .catch((err) => {
-    console.log(err);
     res.status(500).end();
   })
 })
@@ -57,7 +54,6 @@ app.delete('/navigation', (req, res) => {
     res.status(200).end();
   })
   .catch((err) => {
-    console.log(err);
     res.status(500).end();
   })
 })

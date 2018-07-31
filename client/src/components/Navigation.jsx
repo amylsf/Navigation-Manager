@@ -142,6 +142,10 @@ class Navigation extends Component {
                 {this.state.links.map((link, index) => (
                   <Draggable key={link.id} draggableId={link.id} index={index}>
                     {(provided, snapshot) => {
+                      const style = {
+                        boxShadow: snapshot.isDragging ? '0px 10px 20px 0px rgba(0, 0, 0, 0.19)' : null,
+                        border: snapshot.isDragging ? '1px solid rgba(0, 0, 0, 0.85)' : null
+                      }
                       return (
                         <div 
                         ref={provided.innerRef} 
@@ -156,6 +160,7 @@ class Navigation extends Component {
                             links={this.state.links}
                             index={index}
                             updateAll={this.updateAllLinks}
+                            style={style}
                           />
                         </div>
                       )
@@ -175,7 +180,3 @@ class Navigation extends Component {
 }
 
 export default Navigation;
-
-const style = {
-  
-}

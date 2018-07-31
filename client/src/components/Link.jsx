@@ -68,7 +68,7 @@ class Link extends Component {
           </div>
           <div className="clear"></div>
         </div> :
-        <div className="link-container">
+        <div className="link-container" style={this.props.style}>
           <span className="link-title">{this.props.link.link_title}</span>
           <div className="flyout">
             <Dropdown
