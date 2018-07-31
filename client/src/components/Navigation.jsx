@@ -42,7 +42,7 @@ class Navigation extends Component {
     axios.get('/navigation')
     .then(({data}) => [
       this.setState({
-        links: data
+        links: data.slice(0, 5) //added another check just in case
       }, () => {
         if (cb) {
           cb();
