@@ -13,12 +13,14 @@ class Link extends Component {
     }
   }
 
+  //changes link view upon clicking "edit"
   handleEdit = () => {
     this.setState({
       cardIsOpen: !this.state.cardIsOpen
     })
   }
 
+  //updates state upon typing in input box and updates db
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
@@ -27,6 +29,7 @@ class Link extends Component {
     })
   }
 
+  //removes link from list
   removeLink = (e, link_id) => {
     e.preventDefault();
     axios.delete('/navigation', {
@@ -37,14 +40,12 @@ class Link extends Component {
     .then(() => {
       this.props.fetchLinks(this.props.updateAll);
     })
-    .then(() => {
-      console.log(this.props.links)
-    })
     .catch((err) => {
       console.log(err);
     })
   }
 
+  //allows you to press enter to tab to next input box
   handleKeyPress = (e) => {
     if (e.keyCode === 13) {
       this.refs.url.focus();

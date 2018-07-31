@@ -1,13 +1,14 @@
-const knex = require('knex')({
+const knex = require('knex')({ //would typically put this in config file but leaving it here for easy use
   client: 'pg',
   connection: {
     host : '127.0.0.1',
     port: '5432',
-    user : 'amysanfelipe',
+    user : 'nav_admin',
     database : 'nbc_navigation'
   }
 });
 
+//adds a new link to the db
 module.exports.saveLink = (link) => {
   return knex('navigation')
   .insert({
@@ -20,6 +21,7 @@ module.exports.saveLink = (link) => {
   })
 }
 
+//fetches all links from db
 module.exports.fetchLinks = () => {
   return knex('navigation')
   .orderBy('index', 'asc')
@@ -31,6 +33,7 @@ module.exports.fetchLinks = () => {
   })
 }
 
+//updates content of a single link
 module.exports.updateLink = (link) => {
   return knex('navigation')
   .where({
@@ -41,24 +44,19 @@ module.exports.updateLink = (link) => {
     link_url: link.link_url,
     index: link.index
   })
-  .then(() => {
-    console.log('updated link successfully');
-  })
   .catch((err) => {
     console.log('Unable to update link', err);
   })
 }
 
+//removes a link from db
 module.exports.removeLink = (id) => {
   return knex('navigation')
   .where({
     id: id
   })
   .del()
-  .then(() => {
-    console.log('successfully deleted');
-  })
   .catch((err) => {
-    console.log(err);
+    console.log('Unable to remove link from database', err);
   })
 }

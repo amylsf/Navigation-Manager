@@ -1,6 +1,8 @@
 DROP DATABASE IF EXISTS nbc_navigation;
 
 CREATE DATABASE nbc_navigation;
+DROP ROLE nav_admin;
+CREATE ROLE nav_admin WITH LOGIN SUPERUSER; /* wouldn't typically add superuser, but easiest way to give you access */
 
 \c nbc_navigation;
 
@@ -19,16 +21,15 @@ If I had multiple navigations in this project, my schema might look more like th
 
 CREATE TABLE navigation (
   id SERIAL PRIMARY KEY,
-  nav1_links_id SMALLINT REFERENCES nav1_links(id)
-  nav2...
-  nav3...
+  nav_name TEXT NOT NULL
 );
 
-CREATE TABLE nav1_links (
+CREATE TABLE links (
   id SERIAL PRIMARY KEY,
   link_title TEXT NULL,
   link_url TEXT NULL,
   index SMALLINT NOT NULL
+  nav_id SMALLINT REFERENCES navigation(id)
 );
 
 */

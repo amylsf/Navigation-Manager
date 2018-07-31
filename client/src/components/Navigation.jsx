@@ -8,8 +8,7 @@ class Navigation extends Component {
   constructor() {
     super();
     this.state = {
-      links: [],
-      errorMessage: false
+      links: []
     }
 
     //added debounce to limit API calls made when updating link title and url
@@ -20,6 +19,7 @@ class Navigation extends Component {
     this.fetchLinks();
   }
 
+  //adds an empty link to database when you click + item
   addLink = () => {
     let index = this.state.links.length;
     axios.post('/navigation', {
@@ -37,6 +37,7 @@ class Navigation extends Component {
     })
   }
 
+  //retrieves all links
   fetchLinks = (cb) => {
     axios.get('/navigation')
     .then(({data}) => [
@@ -53,16 +54,14 @@ class Navigation extends Component {
     })
   }
 
+  //allows you to add a link as long as you have under 5 links
   handleClick = () => {
-    if (this.state.links.length === 5) {
-      this.setState({
-        errorMessage: true
-      })
-    } else {
+    if (this.state.links.length < 5) {
       this.addLink();
     }
   }
 
+  //updates state with new list order upon drag and drop reordering
   reorderList = (start, end) => {
     let links = this.state.links.slice();
     let dragCard = links[start];
@@ -75,6 +74,7 @@ class Navigation extends Component {
     })
   }
 
+  //handles "drop"
   onDragEnd = (result) => {
     if (!result.destination) {
       return;
@@ -86,6 +86,7 @@ class Navigation extends Component {
     );
   }
 
+  //updates link info when you type into input box
   updateLink = (id, title, url, index) => {
     axios.put('/navigation', {
       link: {
@@ -103,12 +104,14 @@ class Navigation extends Component {
     })
   }
 
+  //updates the indices for all links 
   updateAllLinks = () => {
     this.state.links.forEach((link, index) => {
       this.updateIndex(link.id, index);
     })
   }
 
+  //updates the index in database for a single link
   updateIndex = (id, index) => {
     axios.put('/navigation', {
       link: {
@@ -131,40 +134,48 @@ class Navigation extends Component {
           <span>Navigation</span>
           <span className="nav-button" onClick={this.handleClick}>+ item</span>
         </div>
-        <div className="links-container">
-          <Droppable droppableId="droppable">
-            {(provided, snapshot) => (
-              <div ref={provided.innerRef} >
-              {provided.placeholder}
-              {this.state.links.map((link, index) => (
-                <Draggable key={link.id} draggableId={link.id} index={index}>
-                  {(provided, snapshot) => (
-                    <div
-                    ref={provided.innerRef} 
-                    {...provided.draggableProps} 
-                    {...provided.dragHandleProps}
-                    >
-                      <Link 
-                        key={link.id}
-                        link={link}
-                        fetchLinks={this.fetchLinks}
-                        updateLink={this.updateLink}
-                        links={this.state.links}
-                        index={index}
-                        updateAll={this.updateAllLinks}
-                      />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-            {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </div>
+        {this.state.links.length !== 0 ?
+          <div className="links-container">
+            <Droppable droppableId="droppable">
+              {(provided, snapshot) => (
+                <div ref={provided.innerRef} >
+                {this.state.links.map((link, index) => (
+                  <Draggable key={link.id} draggableId={link.id} index={index}>
+                    {(provided, snapshot) => {
+                      return (
+                        <div 
+                        ref={provided.innerRef} 
+                        {...provided.draggableProps} 
+                        {...provided.dragHandleProps}
+                        >
+                          <Link 
+                            key={link.id}
+                            link={link}
+                            fetchLinks={this.fetchLinks}
+                            updateLink={this.updateLink}
+                            links={this.state.links}
+                            index={index}
+                            updateAll={this.updateAllLinks}
+                          />
+                        </div>
+                      )
+                    }}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </div> : 
+          <div className="no-links-msg">Add a link to get started!</div>
+        }
       </div>
     </DragDropContext>
   )
 }
 
 export default Navigation;
+
+const style = {
+  
+}

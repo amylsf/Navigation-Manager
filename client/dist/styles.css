@@ -12,26 +12,26 @@
   font-style: normal;
 }
 
+*:focus {
+  outline: none;
+}
+
 body {
   font-family: 'SFProText-Regular', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-:-moz-focusring {
-  outline: 0;
-}
-
 .nav-container {
   width: 400px;
-  min-height: 270px;
+  min-height: 260px;
   border: 1px transparent;
   margin: 20px;
   padding-bottom: 8px;
-  background-color: rgba(245, 245, 245);
+  background-color: rgb(245, 245, 245);
 }
 
 .nav-header {
   padding: 5px;
-  background-color: rgba(222, 222, 222);
+  background-color: rgb(222, 222, 222);
   color: rgba(0, 0, 0, 0.85);
 }
 
@@ -41,16 +41,28 @@ body {
 
 .nav-button {
   float: right;
-  color: rgba(0, 103, 247);
+  color: rgb(0, 103, 247);
+}
+
+.no-links-msg {
+  text-align: center;
+  margin-top: 15px;
 }
 
 .link-container {
   margin: 8px 5px 0px 5px;
   height: 36px;
-  background-color: rgba(255, 255, 255);
+  background-color: rgb(255, 255, 255);
   border: 1px solid rgba(0, 0, 0, 0.30);
+  border-radius: 2px;
   display: table;
   box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.13);
+  cursor: pointer;
+}
+
+.link-container:hover {
+  border: 1px solid rgba(0, 0, 0, 0.85);
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
 }
 
 .link-title {
@@ -119,18 +131,31 @@ div.open .dropdown-menu {
   padding-left: 0px;
 }
 
+.menuitem {
+  border-radius: 0;
+  margin: 0px 0px 0px 0px;
+}
+
 .back-button {
-  height: 93%;
-  width: 10%;
+  height: 90%;
+  width: 9%;
   float: left;
-  background-color: rgba(222, 222, 222);
-  margin: 5px;
+  background-color: rgb(222, 222, 222);
+  margin: 7px 5px 0px 10px;
   text-align: center;
   position: relative;
 }
 
 .back-button-img {
   height: 100%;
+}
+
+.link-card {
+  height: 150px;
+  background-color: rgb(255, 255, 255);
+  margin: 5px 5px 0px 5px;
+  border: 1px solid rgba(0, 0, 0, 0.30);
+  cursor: default;
 }
 
 .input-form {
@@ -140,19 +165,11 @@ div.open .dropdown-menu {
 }
 
 .link-input {
-  border: 2px solid rgba(0, 103, 247);
+  border: 2px solid rgb(0, 103, 247);
   padding-left: 5px;
   width: 100%;
   margin-bottom: 10px;
   line-height: 24px;
-}
-
-.link-card {
-  height: 150px;
-  background-color: rgba(255, 255, 255);
-  margin: 5px 5px 0px 5px;
-  border: 1px solid rgba(0, 0, 0, 0.30);
-  cursor: default;
 }
 
 .link-headers {
@@ -161,15 +178,3 @@ div.open .dropdown-menu {
   margin-bottom: 5px;
 }
 
-.clear {
-  clear: both;
-}
-
-input:focus{
-  outline: none;
-}
-
-.menuitem {
-  border-radius: 0;
-  margin: 0px 0px 0px 0px;
-}

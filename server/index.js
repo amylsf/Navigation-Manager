@@ -11,13 +11,14 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 
 app.listen(port, function() {
-  console.log(`Listening on port ${port}`)
+  console.log(`Listening on port ${port}`);
 })
 
+//fetches links from db and returns them to client
 app.get('/navigation', (req, res) => {
   db.fetchLinks()
   .then((data) => {
-    res.send(data);
+    res.status(200).send(data);
   })
   .catch((err) => {
     console.log(err);
@@ -25,6 +26,7 @@ app.get('/navigation', (req, res) => {
   })
 })
 
+//saves a new link to db
 app.post('/navigation', (req, res) => {
   db.saveLink(req.body.link)
   .then(() => {
@@ -36,6 +38,7 @@ app.post('/navigation', (req, res) => {
   })
 })
 
+//updates link info from client to db
 app.put('/navigation', (req, res) => {
   db.updateLink(req.body.link)
   .then(() => {
@@ -47,6 +50,7 @@ app.put('/navigation', (req, res) => {
   })
 })
 
+//removes link
 app.delete('/navigation', (req, res) => {
   db.removeLink(req.query.id)
   .then(() => {
@@ -54,6 +58,6 @@ app.delete('/navigation', (req, res) => {
   })
   .catch((err) => {
     console.log(err);
-    res.stats(500).end();
+    res.status(500).end();
   })
 })
